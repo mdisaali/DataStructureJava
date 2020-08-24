@@ -2,7 +2,7 @@ package datastructure.practice.other;
 
 import datastructure.practice.arrays.TwoPinters;
 
-public class TestClass{
+public class TestClass {
 
     public static void main(String[] args) {
         TestClass t1 = new TestClass();
@@ -30,7 +30,9 @@ public class TestClass{
     }
 
     //total digits for a given total page
-    pivate int totalDigits(int totalPages) {
+    pivate
+
+    int totalDigits(int totalPages) {
         int totalDigits = 0;
         for (int i = 1; i <= 9; i++) {
             if (totalPages < Math.pow(10, i)) {
@@ -62,21 +64,28 @@ public class TestClass{
     }
 
     //return a sorted array containing squares of all the elements of a agiven sorted array. 
-    static int[] squaredSortedArray(int[] arr ){
+    static int[] squaredSortedArray(int[] arr) {
         int[] squaredArray = new int[arr.length];
 
-        int i=0; int j = arr.length-1; int k = squaredArray.length-1; int tempLesserNumber;
+        int i = 0;
+        int j = arr.length - 1;
+        int k = squaredArray.length - 1;
+        int tempLesserNumber;
 
-        while(i!=j){
-            if(Math.pow(arr[i],2)>Math.pow(arr[j],2)){
-                squaredArray[k]=(int)Math.pow(arr[i],2);
-                i++; k--;
-            }else if(Math.pow(arr[i],2)<Math.pow(arr[j],2)){
-                squaredArray[k]=(int)Math.pow(arr[j],2);
-                j--; k--;
-            }else{
-                squaredArray[k]=(int)Math.pow(arr[i],2);
-                i++; j--; k--;
+        while (i != j) {
+            if (Math.pow(arr[i], 2) > Math.pow(arr[j], 2)) {
+                squaredArray[k] = (int) Math.pow(arr[i], 2);
+                i++;
+                k--;
+            } else if (Math.pow(arr[i], 2) < Math.pow(arr[j], 2)) {
+                squaredArray[k] = (int) Math.pow(arr[j], 2);
+                j--;
+                k--;
+            } else {
+                squaredArray[k] = (int) Math.pow(arr[i], 2);
+                i++;
+                j--;
+                k--;
             }
         }
 
@@ -88,41 +97,45 @@ public class TestClass{
         int lengthWithoutDuplicates = 1;
 
         //two pointers
-        int i=0; int j=1;
+        int i = 0;
+        int j = 1;
 
         //right side pointer goes upto end of the array
-        while(j<nums.length){
+        while (j < nums.length) {
 
             //if both numbers have same value, move the right side index by 1
-            if(nums[i]==nums[j]){
+            if (nums[i] == nums[j]) {
                 j++;
             }
             //if numbers have different values, increment left pointer by 1 and swap with right pointer
-            else{
-                nums[++i]=nums[j];
+            else {
+                nums[++i] = nums[j];
                 lengthWithoutDuplicates++;
             }
 
         }
         return lengthWithoutDuplicates;
     }
-    
-    
+
+
     //remove elements of array having same value as a given value
     public static int removeElement(int[] nums, int val) {
-        int i = nums.length-1; int j = nums.length-1;
-        int newLen= 0;
+        int i = nums.length - 1;
+        int j = nums.length - 1;
+        int newLen = 0;
 
-        while(j>=0){
-            if(nums[i]==val){
-                i--;j--;
+        while (j >= 0) {
+            if (nums[i] == val) {
+                i--;
+                j--;
             }
-            if(nums[j]==val){
-                 nums[i]=nums[i]+nums[j];
-                 nums[j]=nums[i]-nums[j];
-                 nums[i]=nums[i]-nums[j];
-                i--;j--;
-            }else{
+            if (nums[j] == val) {
+                nums[i] = nums[i] + nums[j];
+                nums[j] = nums[i] - nums[j];
+                nums[i] = nums[i] - nums[j];
+                i--;
+                j--;
+            } else {
                 j--;
                 newLen++;
             }
@@ -132,30 +145,29 @@ public class TestClass{
 
     //return the index of haystack where the needle starts, return -1 if it does not contain and 0 if both are same.  
     public static int strStr(String haystack, String needle) {
-        if(haystack.equals(needle)){
+        if (haystack.equals(needle)) {
             return 0;
         }
-        int i=0;
-        int j=0;
-        while(i < haystack.length() ){
-            if(j==needle.length()){
-                return i-j;
+        int i = 0;
+        int j = 0;
+        while (i < haystack.length()) {
+            if (j == needle.length()) {
+                return i - j;
             }
-            if(haystack.charAt(i) != needle.charAt(j)){
-                if(j!=0){
-                    i=i-j;
-                    j=0;
+            if (haystack.charAt(i) != needle.charAt(j)) {
+                if (j != 0) {
+                    i = i - j;
+                    j = 0;
                 }
                 i++;
 
-            }
-            else{
+            } else {
                 i++;
                 j++;
             }
         }
-        if(j==needle.length()){
-            return haystack.length()-j;
+        if (j == needle.length()) {
+            return haystack.length() - j;
         }
         return -1;
     }
@@ -163,26 +175,110 @@ public class TestClass{
     //merge two sorted arrays O(m+n)
     public void merge(int[] nums1, int m, int[] nums2, int n) {
 
-        int i=m+n-1;m--;n--;
+        int i = m + n - 1;
+        m--;
+        n--;
 
-        while(i>=0){
-            if(m==-1){
-                nums1[i--]=nums2[n--];
+        while (i >= 0) {
+            if (m == -1) {
+                nums1[i--] = nums2[n--];
                 continue;
             }
 
-            if(n==-1){
-                nums1[i--]=nums1[m--];
+            if (n == -1) {
+                nums1[i--] = nums1[m--];
                 continue;
             }
 
-            if( nums1[m]<=nums2[n]){
-                nums1[i--]=nums2[n--];
-            }else{
-                nums1[i--]=nums1[m--];
+            if (nums1[m] <= nums2[n]) {
+                nums1[i--] = nums2[n--];
+            } else {
+                nums1[i--] = nums1[m--];
             }
         }
 
+    }
+
+    //valid palindrome two pointers
+    public boolean isPalindrome(String s) {
+
+        if (s == null) return false;
+        if (s.length() == 0) return true;
+
+        s = s.toLowerCase();
+        int i = 0;
+        int j = s.length() - 1;
+
+        while (i < j) {
+            if (!((s.charAt(i) >= 'a' && s.charAt(i) <= 'z') || (s.charAt(i) >= '0' && s.charAt(i) <= '9'))) {
+                i++;
+                continue;
+            }
+
+            if (!((s.charAt(j) >= 'a' && s.charAt(j) <= 'z') || (s.charAt(j) >= '0' && s.charAt(j) <= '9'))) {
+                j--;
+                continue;
+            }
+
+            if (s.charAt(i) == s.charAt(j)) {
+                i++;
+                j--;
+                continue;
+            }
+
+            if (s.charAt(i) != s.charAt(j)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+            next = null;
+        }
+    }
+
+    //floyd's algorithm to find cycle in a linked list
+    public boolean hasCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (slow != null && null != fast && null != fast.next) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //two sum problem two pointer technique
+    public int[] twoSum(int[] numbers, int target) {
+        if (numbers == null || numbers.length == 0)
+            return null;
+
+        int i = 0;
+        int j = numbers.length - 1;
+
+        while (i < j) {
+            int x = numbers[i] + numbers[j];
+            if (x < target) {
+                ++i;
+            } else if (x > target) {
+                j--;
+            } else {
+                return new int[]{i + 1, j + 1};
+            }
+        }
+
+        return null;
     }
 }
 
