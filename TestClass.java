@@ -1,54 +1,8 @@
 package datastructure.practice.other;
 
-import datastructure.practice.arrays.ArrayUtils;
+import datastructure.practice.arrays.TwoPinters;
 
-enum Days {
-    SUNDAY("Whoah"),
-    MONDAY,
-    TUESDAY,
-    WEDNESDAY,
-    THURSDAY,
-    FRIDAY,
-    SATURDAY("Yayyy!!!  ") {
-        public String action() {
-            return "it's saturday";
-        }
-    };
-
-    public String action() {
-        return "DUH!!!";
-    }
-
-    public String getMessage() {
-        return this.message;
-    }
-
-    Days() {
-    }
-
-    Days(String message) {
-        this.message = message;
-    }
-
-    public String message;
-}
-
-class ABC {
-
-    private Days day;
-
-    public void setDay(Days day) {
-        this.day = day;
-    }
-
-    ABC getDay(ABC abc) {
-        System.out.println("deyvbynxe");
-        return new ABC();
-    }
-
-}
-
-public class TestClass extends ABC {
+public class TestClass{
 
     public static void main(String[] args) {
         TestClass t1 = new TestClass();
@@ -57,16 +11,12 @@ public class TestClass extends ABC {
         //squaredSortedArray(new int[]{-20,-5,-1,3,8,15});
         //removeDuplicates(new int[]{0,0,1,1,1,2,2,3,3,4});
         //removeElement(new int[]{0,1,2,2,3,0,4,2}, 2);
-        strStr("mississippi", "pi");
+        //strStr("mississippi", "pi");
 
         //System.out.println(t1.getDay().getMessage() + " " + t1.getDay().action());
     }
 
-    private TestClass getDay(TestClass t1) throws Exception {
-        System.out.println("xdvgb");
-        return new TestClass();
-    }
-
+    //Shuffle a given array using O(n/2)
     int[] shuffleArray(int[] nums) {
         int n = nums.length;
         int[] temp = new int[n];
@@ -79,8 +29,8 @@ public class TestClass extends ABC {
         return temp;
     }
 
-
-    private int totalDigits(int totalPages) {
+    //total digits for a given total page
+    pivate int totalDigits(int totalPages) {
         int totalDigits = 0;
         for (int i = 1; i <= 9; i++) {
             if (totalPages < Math.pow(10, i)) {
@@ -96,12 +46,7 @@ public class TestClass extends ABC {
     }
 
 
-    /*public static void main(String[] args) {
-
-        int n= 16;
-        printPattern(n);
-
-    }*/
+    //print pattern if 
     static void printPattern(int n) {
         if (n == 0 || n < 0) {
             System.out.print(n + " ");
@@ -116,6 +61,7 @@ public class TestClass extends ABC {
 
     }
 
+    //return a sorted array containing squares of all the elements of a agiven sorted array. 
     static int[] squaredSortedArray(int[] arr ){
         int[] squaredArray = new int[arr.length];
 
@@ -137,7 +83,7 @@ public class TestClass extends ABC {
         return squaredArray;
     }
 
-    //*
+    //remove duplicate number , modify the array and return the length 
     static int removeDuplicates(int[] nums) {
         int lengthWithoutDuplicates = 1;
 
@@ -160,7 +106,9 @@ public class TestClass extends ABC {
         }
         return lengthWithoutDuplicates;
     }
-
+    
+    
+    //remove elements of array having same value as a given value
     public static int removeElement(int[] nums, int val) {
         int i = nums.length-1; int j = nums.length-1;
         int newLen= 0;
@@ -182,6 +130,7 @@ public class TestClass extends ABC {
         return newLen;
     }
 
+    //return the index of haystack where the needle starts, return -1 if it does not contain and 0 if both are same.  
     public static int strStr(String haystack, String needle) {
         if(haystack.equals(needle)){
             return 0;
