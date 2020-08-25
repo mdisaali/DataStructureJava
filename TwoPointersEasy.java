@@ -1,11 +1,9 @@
 package datastructure.practice.other;
 
-import datastructure.practice.arrays.TwoPinters;
-
-public class TestClass {
+public class TwoPointersEasy {
 
     public static void main(String[] args) {
-        TestClass t1 = new TestClass();
+        TwoPointersEasy t1 = new TwoPointersEasy();
         //t1.setDay(Days.SATURDAY);
         //t1.totalDigits(13);
         //squaredSortedArray(new int[]{-20,-5,-1,3,8,15});
@@ -30,8 +28,6 @@ public class TestClass {
     }
 
     //total digits for a given total page
-    pivate
-
     int totalDigits(int totalPages) {
         int totalDigits = 0;
         for (int i = 1; i <= 9; i++) {
@@ -279,6 +275,74 @@ public class TestClass {
         }
 
         return null;
+    }
+
+    //move zeros to the end
+    public void moveZeroes1(int[] nums) {
+        int i=0;
+        int j=nums.length-1;
+
+        while(i<j){
+            if(nums[i]==0){
+                for(int k=i;k<j;k++){
+                    nums[k]=nums[k+1];
+                }
+                nums[j--]=0;
+            }else i++;
+        }
+    }
+
+    //move zeros to the end faster
+    public void moveZeroes2(int[] nums) {
+        int flag = -1;
+        for (int i=0; i<nums.length; ++i) {
+            if (nums[i]!=0) {
+                nums[i] = nums[++flag]+ nums[i];
+                nums[flag] = nums[i]-nums[flag];
+                nums[i] = nums[i]-nums[flag];
+            }
+        }
+    }
+
+    //reverse a string keeping in place and O[n)
+    public void reverseString(char[] s) {
+        int i=0; int j=s.length-1;
+        char c;
+        while(i<j){
+            c=s[i];
+            s[i++]=s[j];
+            s[j--]=c;
+        }
+    }
+
+    //reverse the vowels of a string
+    public String reverseVowels(String s) {
+        char[] cArr = s.toCharArray();
+        int i=0; int j=s.length()-1; char c;
+
+        while(i<j){
+            if(!checkVowel(s.charAt(i))){
+                i++;
+                continue;
+            }
+            if(!checkVowel(s.charAt(j))){
+                j--;
+                continue;
+            }
+            c=cArr[i];
+            cArr[i]=cArr[j];
+            cArr[j]=c;
+            i++;j--;
+        }
+        return String.valueOf(cArr);
+    }
+
+    boolean checkVowel(char c){
+        if(c=='a' || c=='A' || c=='e' || c=='E' || c=='i' || c=='I' || c=='o' || c=='O' || c=='u' || c=='U'){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 
