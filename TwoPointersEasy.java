@@ -1,5 +1,10 @@
 package datastructure.practice.other;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+
 public class TwoPointersEasy {
 
     public static void main(String[] args) {
@@ -279,70 +284,164 @@ public class TwoPointersEasy {
 
     //move zeros to the end
     public void moveZeroes1(int[] nums) {
-        int i=0;
-        int j=nums.length-1;
+        int i = 0;
+        int j = nums.length - 1;
 
-        while(i<j){
-            if(nums[i]==0){
-                for(int k=i;k<j;k++){
-                    nums[k]=nums[k+1];
+        while (i < j) {
+            if (nums[i] == 0) {
+                for (int k = i; k < j; k++) {
+                    nums[k] = nums[k + 1];
                 }
-                nums[j--]=0;
-            }else i++;
+                nums[j--] = 0;
+            } else i++;
         }
     }
 
     //move zeros to the end faster
     public void moveZeroes2(int[] nums) {
         int flag = -1;
-        for (int i=0; i<nums.length; ++i) {
-            if (nums[i]!=0) {
-                nums[i] = nums[++flag]+ nums[i];
-                nums[flag] = nums[i]-nums[flag];
-                nums[i] = nums[i]-nums[flag];
+        for (int i = 0; i < nums.length; ++i) {
+            if (nums[i] != 0) {
+                nums[i] = nums[++flag] + nums[i];
+                nums[flag] = nums[i] - nums[flag];
+                nums[i] = nums[i] - nums[flag];
             }
         }
     }
 
     //reverse a string keeping in place and O[n)
     public void reverseString(char[] s) {
-        int i=0; int j=s.length-1;
+        int i = 0;
+        int j = s.length - 1;
         char c;
-        while(i<j){
-            c=s[i];
-            s[i++]=s[j];
-            s[j--]=c;
+        while (i < j) {
+            c = s[i];
+            s[i++] = s[j];
+            s[j--] = c;
         }
     }
 
     //reverse the vowels of a string
     public String reverseVowels(String s) {
         char[] cArr = s.toCharArray();
-        int i=0; int j=s.length()-1; char c;
+        int i = 0;
+        int j = s.length() - 1;
+        char c;
 
-        while(i<j){
-            if(!checkVowel(s.charAt(i))){
+        while (i < j) {
+            if (!checkVowel(s.charAt(i))) {
                 i++;
                 continue;
             }
-            if(!checkVowel(s.charAt(j))){
+            if (!checkVowel(s.charAt(j))) {
                 j--;
                 continue;
             }
-            c=cArr[i];
-            cArr[i]=cArr[j];
-            cArr[j]=c;
-            i++;j--;
+            c = cArr[i];
+            cArr[i] = cArr[j];
+            cArr[j] = c;
+            i++;
+            j--;
         }
         return String.valueOf(cArr);
     }
 
-    boolean checkVowel(char c){
-        if(c=='a' || c=='A' || c=='e' || c=='E' || c=='i' || c=='I' || c=='o' || c=='O' || c=='u' || c=='U'){
+    private boolean checkVowel(char c) {
+        if (c == 'a' || c == 'A' || c == 'e' || c == 'E' || c == 'i' || c == 'I' || c == 'o' || c == 'O' || c == 'u' || c == 'U') {
             return true;
-        }else{
+        } else {
             return false;
         }
+    }
+
+    //intersection of two arrays using hashset
+    public int[] intersection(int[] nums1, int[] nums2) {
+        HashSet<Integer> set1 = new HashSet<Integer>();
+        for (Integer n : nums1) set1.add(n);
+        HashSet<Integer> set2 = new HashSet<Integer>();
+        for (Integer n : nums2) set2.add(n);
+
+        set1.retainAll(set2);
+
+        int[] output = new int[set1.size()];
+        int idx = 0;
+        for (int s : set1) output[idx++] = s;
+        return output;
+    }
+
+    //using ArrayList and two pointers
+    public int[] intersect(int[] nums1, int[] nums2) {
+        if (nums1.length == 0 || nums2.length == 0) {
+            int arr[] = new int[0];
+            return arr;
+        }
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        List<Integer> list = new ArrayList<Integer>();
+        int i = 0;
+        int j = 0;
+        while (i < nums1.length && j < nums2.length) {
+            if (nums1[i] == nums2[j]) {
+                list.add(nums1[i]);
+                i++;
+                j++;
+            } else if (nums1[i] < nums2[j]) {
+                i++;
+            } else {
+                j++;
+            }
+        }
+        int arr[] = new int[list.size()];
+        for (int k = 0; k < list.size(); k++) {
+            arr[k] = list.get(k);
+        }
+
+        return arr;
+    }
+
+    //backspace string compare : '#' is backspace
+    public boolean backspaceCompare(String S, String T) {
+        String A = getString(S);
+        String B = getString(T);
+        return A.contentEquals(B);
+    }
+
+    private String getString(String A) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < A.length(); i++) {
+            if (sb.length() > 0 && A.charAt(i) == '#') {
+                sb.setLength(sb.length() - 1);
+            } else if (A.charAt(i) != '#') {
+                sb.append(A.charAt(i));
+            }
+        }
+
+
+        return sb.toString();
+    }
+
+    //k-diff pairs of an array
+    public int findPairs(int[] nums, int k) {
+        if (nums == null || nums.length == 0 || k < 0) {
+            return 0;
+        }
+        Arrays.sort(nums);
+        int count = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int n = nums[i];
+            if (i >= 1 && nums[i - 1] == nums[i]) {
+                continue;
+            }
+            for (int j = i + 1; j < nums.length; j++) {
+                if (j >= i + 2 && nums[j - 1] == nums[j]) {
+                    continue;
+                }
+                if (Math.abs(n - nums[j]) == k) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 }
 
